@@ -15,14 +15,15 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<String> {
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
-        channelGroup.writeAndFlush(ctx.channel().remoteAddress() + "上线了...");
+        channelGroup.writeAndFlush("**********" + ctx.channel().remoteAddress() + "上线了...");
 
         channelGroup.add(channel);
     }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
-
+        Channel channel = ctx.channel();
+        channelGroup.writeAndFlush("**********" + ctx.channel().remoteAddress() + "下线了...");
     }
 
     @Override
