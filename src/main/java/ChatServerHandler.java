@@ -21,9 +21,16 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<String> {
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+    public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
         channelGroup.writeAndFlush("**********" + ctx.channel().remoteAddress() + "下线了...");
+    }
+
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+        Channel channel = ctx.channel();
+        channelGroup.stream().filter(ch -> ch != channel).
+                forEach(ch ->channel.writeAndFlush(ctx.channel().remoteAddress() + "说：" + msg));
     }
 
     @Override
