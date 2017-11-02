@@ -3,10 +3,14 @@ version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
-    mavenCentral()
+    //mavenCentral()
+    maven {
+        url 'http://118.89.229.31:15796/nexus/content/groups/public/'
+    }
 }
 
 dependencies {
